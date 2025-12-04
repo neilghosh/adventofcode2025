@@ -1,0 +1,63 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "dotnet",
+            "args": ["build"],
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-current",
+            "type": "shell",
+            "command": "dotnet",
+            "args": ["build", "--no-incremental", "\"/p:StartupObject=${fileBasenameNoExtension}\""],
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Run Current C# File",
+            "type": "shell",
+            "command": "dotnet",
+            "args": ["run", "${file}"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Compile and Run Current C# File",
+            "type": "shell",
+            "command": "csc",
+            "args": [
+                "${file}",
+                "-out:${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [],
+            "dependsOn": [],
+            "postRunTask": "Execute Compiled File"
+        },
+        {
+            "label": "Execute Compiled File",
+            "type": "shell",
+            "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ]
+}
